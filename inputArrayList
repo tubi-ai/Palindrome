@@ -1,0 +1,42 @@
+package com.company;
+
+import java.util.ArrayList;
+
+public class inputArrayList {
+    private int size;
+    ArrayList<String> L;
+
+
+    inputArrayList(int size){
+        this.size = size;
+    }
+    public boolean isPalindrome(int i, int j){
+        if (i>=j)
+            return true;
+        else{
+            String s1=L.get(i);
+            String s2=L.get(j);
+            if (s1.equals(s2))
+                isPalindrome(i+1,j-1);
+        } return false;
+    }
+    void addArrayList(String s){
+        L.set(++size,s);
+        size++;
+    }
+    boolean checkExistance( String s){
+        for (int i=0; i<size; i++){
+            String s1=L.get(i);
+            if (s1.compareTo(s)==0)
+                return true;
+        } return false;
+    }
+    void printArrayList(){
+        int i;
+        for (i=0;i<size;i++)
+            String.format("[ %s, ",L.get(i));
+        String.format("%s ]",L.get(i));
+
+    }
+
+}
