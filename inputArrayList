@@ -1,42 +1,79 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class inputArrayList {
-    private int size;
-    ArrayList<String> L;
+    private ArrayList<String> L;
 
-
-    inputArrayList(int size){
-        this.size = size;
-    }
-    public boolean isPalindrome(int i, int j){
-        if (i>=j)
-            return true;
-        else{
-            String s1=L.get(i);
-            String s2=L.get(j);
-            if (s1.equals(s2))
-                isPalindrome(i+1,j-1);
-        } return false;
-    }
-    void addArrayList(String s){
-        L.set(++size,s);
-        size++;
-    }
-    boolean checkExistance( String s){
-        for (int i=0; i<size; i++){
-            String s1=L.get(i);
-            if (s1.compareTo(s)==0)
-                return true;
-        } return false;
-    }
-    void printArrayList(){
-        int i;
-        for (i=0;i<size;i++)
-            String.format("[ %s, ",L.get(i));
-        String.format("%s ]",L.get(i));
-
+    public inputArrayList(int size) {
+        L = new ArrayList<>(size);
     }
 
+    public void addArrayList(String s) {
+        if (!L.contains(s)) {
+            L.add(s);
+        }
+    }
+
+    public boolean isPalindromeString(String s) {
+        int i = 0, j = s.length() - 1;
+        while (i < j) {
+            if (s.charAt(i) != s.charAt(j)) return false;
+            i++;
+            j--;
+        }
+        return true;
+    }
+
+    public void expandAndUpdateWithInput(int index, Scanner sc) {
+        int currentSize = L.size();
+        // Önce listeyi genişlet
+        if (index >= currentSize) {
+            // Ara indexler için kullanıcıdan string iste
+            for (int i = currentSize; i <= index; i++) {
+                System.out.print("Enter a string for index " + i + ": ");
+                String newString = sc.next();
+                L.add(newString);
+
+                // Yeni eklenen string için palindrom kontrolü
+                if (isPalindromeString(newString)) {
+                    System.out.println('"' + newString + "\" is a palindrome!");
+                } else {
+                    System.out.println('"' + newString + "\" is not a palindrome.");
+                }
+            }
+        } else {
+            // Mevcut bir index güncelleniyorsa
+            System.out.print("Enter a new string for index " + index + ": ");
+            String newString = sc.next();
+            L.set(index, newString);
+
+            // Güncellenen string için palindrom kontrolü
+            if (isPalindromeString(newString)) {
+                System.out.println('"' + newString + "\" is a palindrome!");
+            } else {
+                System.out.println('"' + newString + "\" is not a palindrome.");
+            }
+        }
+    }
+
+    public void printArrayList() {
+        System.out.println("Final List:" + L);
+        System.out.println("Final List with indexes:" );
+        for (int i = 0; i < L.size(); i++) {
+            System.out.println(i + ": " + L.get(i));
+        }
+    }
+    public void updatedPrintArrayList() {
+        System.out.println("Updated List:" + L);
+        System.out.println("Updated List with indexes:" );
+        for (int i = 0; i < L.size(); i++) {
+            System.out.println(i + ": " + L.get(i));
+        }
+    }
+
+    public int size() {
+        return L.size();
+    }
 }
