@@ -1,41 +1,50 @@
 package com.company;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Scanner;
+
 public class Main {
-
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
 
-        Scanner sc=new Scanner(System.in);
-        System.out.print("enter a number: ");
-        int N = sc.nextInt();
-        ArrayList<String> L = new ArrayList<String>(N);
-        for(int i=0; i<N;i++){
+        System.out.print("Enter the number of strings: ");
+        int N = getValidInt(sc);
+
+        inputArrayList list = new inputArrayList(N);
+
+        for (int i = 0; i < N; i++) {
             System.out.print("Enter a String: ");
-            String s1 = sc.next();
-            boolean ans1 = L.contains(s1);
-            if (ans1)
-                L.remove(s1);
-            else
-                L.add(s1);
-            boolean ans = L.contains(s1);
+            String s = sc.next();
+            list.addArrayList(s);
 
+            if (list.isPalindromeString(s)) {
+                System.out.println('"' + s + "\" is a palindrome!");
+            } else {
+                System.out.println('"' + s + "\" is not a palindrome.");
+            }
         }
-        System.out.print("enter a number: ");
-        int j = sc.nextInt();
-        L.set(j,"Antalya");
-        Collections.sort(L);
-        System.out.println(L);
-        Collections.sort(L,Collections.reverseOrder());
-        System.out.println(L);
-        System.out.print("Enter a String: ");
-        String s1 = sc.next();
-        boolean ans1 = L.contains(s1);
-        if (!ans1)
-            L.add(s1);
-        System.out.println(L);
-        for (int i=0;i<N;i++)
-            System.out.println(L.get(i));
+
+        System.out.print("Enter an index to update (or -1 to skip): ");
+        int index = getValidInt(sc);
+
+        if (index >= 0) {
+            list.expandAndUpdateWithInput(index, sc);
+            list.updatedPrintArrayList();
+        }
+        else if (index == -1) {
+        	list.printArrayList();
+        }
+        else {
+        	System.out.println("Invalid index!");
+        }
+
+        
+    }
+
+    private static int getValidInt(Scanner sc) {
+        while (!sc.hasNextInt()) {
+            System.out.print("Invalid input. Enter a valid number: ");
+            sc.next();
+        }
+        return sc.nextInt();
     }
 }
